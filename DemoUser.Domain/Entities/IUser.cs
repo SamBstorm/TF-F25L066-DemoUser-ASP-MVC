@@ -6,10 +6,10 @@ namespace DemoUser.Domain.Entities
 {
     public interface IUser
     {
-        public Guid Id { get; set; }
-        public string Email { get; set; }
-        public string Password { get; set; }
-        public DateTime CreatedAt { get; set; }
-        public DateTime? DisabledAt { get; set; }
+        public Guid Id { get; }
+        public string Email { get; }
+        public string Password { get; }
+        public DateTime CreatedAt { get;  }
+        public DateTime? DisabledAt { get; }
     }
 }
