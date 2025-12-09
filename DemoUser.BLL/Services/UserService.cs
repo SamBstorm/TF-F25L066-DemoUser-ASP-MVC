@@ -1,4 +1,5 @@
 ﻿using DemoUser.BLL.Entities;
+using DemoUser.BLL.Mapper;
 using DemoUser.Domain.Repositories;
 using System;
 using System.Collections.Generic;
