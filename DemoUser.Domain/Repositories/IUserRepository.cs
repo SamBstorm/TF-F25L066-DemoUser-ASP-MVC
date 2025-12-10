@@ -6,8 +6,8 @@ using System.Text;
 
 namespace DemoUser.Domain.Repositories
 {
-    public interface IUserRepository<TUser> : ICRUDRepository<TUser, Guid> where TUser : class, IUser
+    public interface IUserRepository<TUser> : ICRUDRepository<TUser, Guid> where TUser : class
     {
-        Guid CheckPassword(string email, string password);
+        User? CheckPassword(string email, string password);
     }
 }

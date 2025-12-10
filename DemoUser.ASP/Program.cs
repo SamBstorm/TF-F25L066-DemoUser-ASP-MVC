@@ -1,3 +1,9 @@
+using DemoUser.BLL.Services.Implementations;
+using DemoUser.BLL.Services.Interfaces;
+using DemoUser.DAL.Repositories;
+using DemoUser.Domain.Entities;
+using DemoUser.Domain.Repositories;
+
 namespace DemoUser.ASP
 {
     public class Program
@@ -8,6 +14,32 @@ namespace DemoUser.ASP
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            
+            builder.Services.AddScoped<IUserRepository<User>>(sp =>
+            {
+                var configuration = sp.GetRequiredService<IConfiguration>();
+                var connectionString = configuration.GetConnectionString("DefaultConnection");
+                return new SqlUserRepository(connectionString!);
+            });
+
+            builder.Services.AddScoped<ISessionRepository>(sp =>
+            {
+                var configuration = sp.GetRequiredService<IConfiguration>();
+                var connectionString = configuration.GetConnectionString("DefaultConnection");
+                return new SqlSessionRepository(connectionString!);
+            });
+            
+            
+            builder.Services.AddScoped<ITodoRepo>(sp =>
+            {
+                var configuration = sp.GetRequiredService<IConfiguration>();
+                var connectionString = configuration.GetConnectionString("DefaultConnection");
+                return new SqlTodoRepo(connectionString!);
+            });
+
+            builder.Services.AddScoped<IUserService, UserService>();
+            builder.Services.AddScoped<ISessionService, SessionService>();
+            builder.Services.AddScoped<ITodoService, TodoService>();
 
             var app = builder.Build();
 
@@ -19,7 +51,7 @@ namespace DemoUser.ASP
                 app.UseHsts();
             }
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
             app.UseStaticFiles();
 
             app.UseRouting();

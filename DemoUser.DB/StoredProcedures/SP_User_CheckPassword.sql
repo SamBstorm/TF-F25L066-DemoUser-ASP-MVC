@@ -3,7 +3,10 @@
 	@password NVARCHAR(64)
 AS
 BEGIN
-	SELECT [Id]
+	SELECT  [Id],
+			[Email],
+			[CreatedAt],
+			[DisabledAt]
 		FROM [User]
 		WHERE	[Email] = @email
 			AND	[Password] = [dbo].[SF_SaltAndHash](@password, [Salt])

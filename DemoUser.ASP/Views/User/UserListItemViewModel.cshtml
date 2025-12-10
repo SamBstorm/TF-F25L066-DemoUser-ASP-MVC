@@ -1,0 +1,52 @@
+﻿@model IEnumerable<DemoUser.ASP.Models.User.UserListItemViewModel>
+
+@{
+    ViewData["Title"] = "Users";
+}
+
+<h1>Users</h1>
+
+@if (TempData["LoginMessage"] is string msg)
+{
+    <div class="alert alert-success">@msg</div>
+}
+
+<p>
+    <a asp-controller="User" asp-action="Register" class="btn btn-primary">Register</a>
+    
+    @* Ancien login sans Session
+    <a asp-controller="User" asp-action="Login" class="btn btn-secondary">Login</a> *@
+    <a asp-controller="User" asp-action="LoginWithSession" class="btn btn-secondary">Login</a>
+</p>
+
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>Email</th>
+        <th>Created At</th>
+        <th>Active</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    
+    <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>@user.Email</td>
+                <td>@user.CreatedAt</td>
+                <td>@(user.IsActive ? "Yes" : "No")</td>
+                <td>
+                    @if (user.IsActive)
+                    {
+                        <form asp-action="Disable" method="post" style="display: inline">
+                            <input type="hidden" name="id" value="@user.Id">
+                            <button type="submit" class="btn btn-sm btn-danger">Disable</button>
+                        </form>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+    
+</table>

@@ -1,0 +1,39 @@
+﻿@model IEnumerable<DemoUser.ASP.Models.Todo.TodoListItemViewModel>
+
+@{
+    ViewData["Title"] = "Todos";
+}
+
+<h1>Todos</h1>
+
+<p>
+    <a asp-controller="Todo" asp-action="Create" class="btn btn-primary">New Todo</a>
+</p>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Done</th>
+            <th>Created At</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var todo in Model)
+        {
+            <tr>
+                <td>@todo.Title</td>
+                <td>@(todo.IsDone ? "Yes" : "No")</td>
+                <td>@todo.CreatedAt</td>
+                <td>
+                    <a asp-controller="Todo" asp-action="Edit" asp-route-id="@todo.Id" class="btn btn-sm btn-secondary">Edit</a>
+
+                    <form asp-controller="Todo" asp-action="Delete" asp-route-id="@todo.Id" method="post" style="display:inline">
+                        <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

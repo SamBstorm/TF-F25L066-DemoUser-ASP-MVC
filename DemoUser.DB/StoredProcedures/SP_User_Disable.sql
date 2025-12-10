@@ -1,0 +1,10 @@
+﻿CREATE PROCEDURE [dbo].[SP_User_Disable]
+	@Id UNIQUEIDENTIFIER
+AS
+BEGIN
+	SET NOCOUNT ON;
+
+	UPDATE [User]
+		SET [DisabledAt] = GETDATE()
+	WHERE [Id] = @Id;
+END
